@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F1A"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Logo / Başlık -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📱 Remote Control"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#9090FF"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefonunuzu bilgisayardan yönetin"
+            android:textSize="13sp"
+            android:textColor="#6060AA"
+            android:layout_marginBottom="16dp" />
+
+        <!-- PC / Sunucu adresi (aynı ağdaki bilgisayar IP'si) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PC (Sunucu) IP adresi"
+                android:textSize="11sp"
+                android:textColor="#6060AA"
+                android:letterSpacing="0.2"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/et_server_ip"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="192.168.1.103"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="14sp"
+                android:textColor="#E0E0FF"
+                android:textColorHint="#5050AA"
+                android:background="@drawable/card_bg"
+                android:padding="12dp"
+                android:imeOptions="actionDone" />
+        </LinearLayout>
+
+        <!-- Bağlantı Kodu Kartı -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BAĞLANTI KODU"
+                android:textSize="11sp"
+                android:textColor="#6060AA"
+                android:letterSpacing="0.2"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="——————"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.3"
+                android:fontFamily="monospace" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bu kodu desktop uygulamasına girin"
+                android:textSize="12sp"
+                android:textColor="#5050AA"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- Durum Kartı -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DURUM"
+                android:textSize="11sp"
+                android:textColor="#6060AA"
+                android:letterSpacing="0.2"
+                android:layout_marginBottom="6dp" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⏳ Başlatılıyor..."
+                android:textSize="14sp"
+                android:textColor="#C0C0E0" />
+
+            <TextView
+                android:id="@+id/tv_ip_port"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="11sp"
+                android:textColor="#5050AA"
+                android:fontFamily="monospace"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- Erişilebilirlik Uyarısı -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_warning_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_accessibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚠ Dokunma kontrolü için buraya tıklayın"
+                android:textSize="13sp"
+                android:textColor="#FFCC66"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Butonlar -->
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="🔄 Yeniden Bağlan"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3A3ACC"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/btn_stop_stream"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="⏹ Yayını Durdur"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#7A1A1A"
+            android:layout_marginBottom="32dp" />
+
+    </LinearLayout>
+</ScrollView>
