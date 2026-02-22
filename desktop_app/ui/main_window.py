@@ -208,6 +208,8 @@ class MainWindow(QMainWindow):
 
         conn_lay.addWidget(QLabel("Sunucu Adresi:"))
         self._inp_server = QLineEdit(ServerDefaults.DEFAULT_URL)
+        self._inp_server.setReadOnly(True)
+        self._inp_server.setEnabled(False)
         self._inp_server.setPlaceholderText(ServerDefaults.PLACEHOLDER)
         self._inp_server.setToolTip(ServerDefaults.TOOLTIP)
         conn_lay.addWidget(self._inp_server)
