@@ -15,6 +15,7 @@ import json
 import logging
 import sys
 import os
+import http
 
 # Proje kökünü path'e ekle (signaling_server.config için)
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -31,6 +32,16 @@ logger = logging.getLogger(__name__)
 
 # code -> {"phone": ws, "pc": ws}
 sessions: dict = {}
+
+
+async def process_request(connection, request):
+    """
+    Render'ın health check (HTTP GET/HEAD /) isteklerini yakalar ve 200 OK döndürür.
+    Bu sayede 'handshake failed' hataları engellenir.
+    """
+    if request.path == "/":
+        return connection.respond(http.HTTPStatus.OK, "OK\n")
+    return None
 
 
 async def send_json(ws, data: dict):
@@ -150,7 +161,7 @@ async def main():
     port = ServerConfig.PORT
     logger.info(f"Signaling server starting on ws://{host}:{port}")
 
-    async with websockets.serve(handler, host, port):
+    async with websockets.serve(handler, host, port, process_request=process_request):
         logger.info(f"✅ Server listening on ws://{host}:{port}")
         await asyncio.Future()  # Sonsuza kadar çalış
 

@@ -35,16 +35,11 @@ class MainActivity : AppCompatActivity() {
         private const val PREFS_NAME = "RemoteControlPrefs"
         private const val KEY_SERVER_IP = "server_ip"
         private const val DEFAULT_SERVER_IP = "192.168.1.103"  // Aynı ağdaki PC'nin IP'si
-        private const val SIGNALING_PORT = 8765
+        private const val SIGNALING_URL = "wss://connect-your-phone.onrender.com"
         // Emülatörde host makineye ulaşmak için 10.0.2.2 kullanılır
         // Gerçek cihazda 192.168.1.103:8765 (signaling sunucusunun IP'si)
 
         private val IS_EMULATOR = (android.os.Build.FINGERPRINT.startsWith("generic")
-
-        private val SIGNALING_URL = if (IS_EMULATOR)
-            "ws://10.0.2.2:8765"         // Emülatörden host PC'ye
-        else
-            "ws://192.168.1.103:8765"    // Gerçek cihaz (aynı WiFi)
                 || android.os.Build.FINGERPRINT.startsWith("unknown")
                 || android.os.Build.MODEL.contains("Emulator")
                 || android.os.Build.MODEL.contains("Android SDK built for x86")
@@ -112,12 +107,6 @@ class MainActivity : AppCompatActivity() {
         btnStopStream = findViewById(R.id.btn_stop_stream)
         tvAccessibility = findViewById(R.id.tv_accessibility)
 
-        // Kayıtlı PC IP'sini yükle (aynı ağdaki diğer telefon için)
-        getPreferences(MODE_PRIVATE).getString(KEY_SERVER_IP, DEFAULT_SERVER_IP)?.let { saved ->
-            if (etServerIp.text.isNullOrBlank()) etServerIp.setText(saved)
-        }
-        if (etServerIp.text.isNullOrBlank()) etServerIp.setHint(DEFAULT_SERVER_IP)
-
         btnConnect.setOnClickListener { autoConnect() }
         btnStopStream.setOnClickListener { stopAllStreams() }
         tvAccessibility.setOnClickListener {
@@ -127,24 +116,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSignalingUrl(): String {
-        val input = etServerIp.text?.toString()?.trim() ?: ""
-        
-        // Eğer kullanıcı tam bir URL girdiyse (ws:// veya wss://), direkt onu kullan
-        if (input.startsWith("ws://") || input.startsWith("wss://")) {
-            return input
-        }
-        
-        // Sadece host/IP girdiyse veya boşsa port ekleyerek döndür
-        val host = input.ifBlank { null }
-            ?: (if (IS_EMULATOR) "10.0.2.2" else DEFAULT_SERVER_IP)
-            
-        return "ws://$host:$SIGNALING_PORT"
+        return SIGNALING_URL
     }
 
     private fun autoConnect() {
-        val serverUrl = getSignalingUrl()
-        getPreferences(MODE_PRIVATE).edit().putString(KEY_SERVER_IP, etServerIp.text?.toString()?.trim() ?: DEFAULT_SERVER_IP).apply()
-
+        val serverUrl = SIGNALING_URL
+        
         updateStatus("🔄 Signaling sunucusuna bağlanıyor...")
         btnConnect.isEnabled = false
 
