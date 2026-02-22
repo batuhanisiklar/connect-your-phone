@@ -22,10 +22,10 @@ class AppMeta:
 @dataclass(frozen=True)
 class ServerDefaults:
     """Signaling sunucu varsayılanları."""
-    # Aynı bilgisayarda: 127.0.0.1; ağdan: ws://192.168.x.x:8765
-    DEFAULT_URL: str = "ws://127.0.0.1:8765"
-    PLACEHOLDER: str = "ws://127.0.0.1:8765 veya ws://IP:8765"
-    TOOLTIP: str = "Signaling sunucu adresi. Aynı bilgisayarda: ws://127.0.0.1:8765"
+    # Aynı bilgisayarda: ws://127.0.0.1:8765; Render'da: wss://your-app.onrender.com
+    DEFAULT_URL: str = "wss://your-app.onrender.com"
+    PLACEHOLDER: str = "wss://appname.onrender.com veya ws://127.0.0.1:8765"
+    TOOLTIP: str = "Signaling sunucu adresi (ws:// veya wss://)"
     CODE_LENGTH: int = 6
 
 

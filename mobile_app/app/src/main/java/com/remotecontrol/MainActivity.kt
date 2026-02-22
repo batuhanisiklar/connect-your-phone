@@ -127,8 +127,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSignalingUrl(): String {
-        val host = etServerIp.text?.toString()?.trim()?.ifBlank { null }
+        val input = etServerIp.text?.toString()?.trim() ?: ""
+        
+        // Eğer kullanıcı tam bir URL girdiyse (ws:// veya wss://), direkt onu kullan
+        if (input.startsWith("ws://") || input.startsWith("wss://")) {
+            return input
+        }
+        
+        // Sadece host/IP girdiyse veya boşsa port ekleyerek döndür
+        val host = input.ifBlank { null }
             ?: (if (IS_EMULATOR) "10.0.2.2" else DEFAULT_SERVER_IP)
+            
         return "ws://$host:$SIGNALING_PORT"
     }
 
